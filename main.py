@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 def nearest_neighbor(test_point, classes, features):
     min_dist = np.inf
@@ -25,12 +26,24 @@ numColumns = array.shape[1]
 print("numRows = ", numRows)
 print("numColumns = ", numColumns)
 
-def accuracy(): # testing stub
-    return np.rand
+def leave_one_out_cross_validation(data, current_set, feature_to_add): # testing stub
+    return random.randint(0,100)
 
 def feature_search_demo(data, numColumns):
-    for i in range(numColumns-1):
-        print("On the ", i+1, "th level of the search tree")
+    current_set_of_features = [] # initialize empty set
+    for i in range(1, numColumns):
+        print("On the", i, "th level of the search tree")
+        feature_to_add_at_this_level = []
+        best_so_far_accuracy = 0
+        for k in range(1, numColumns):
+            if (k not in current_set_of_features):
+                print("--Considering adding the", k, "feature")
+                accuracy = leave_one_out_cross_validation(data, current_set_of_features, k+1)
+                if accuracy > best_so_far_accuracy:
+                    best_so_far_accuracy = accuracy
+                    feature_to_add_at_this_level = k
+        current_set_of_features.append(feature_to_add_at_this_level)
+        print("On level", i, ", added feature", feature_to_add_at_this_level, "to current set")
 
 feature_search_demo(array, numColumns)
 
