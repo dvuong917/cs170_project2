@@ -19,15 +19,37 @@ print("Welcome to Dylan Vuong's Feature Selection Algorithm.")
 # inputFile = input("Type in the name of the file to test: ")
 inputFile = "CS170_Small_Data__20.txt"
 array = np.loadtxt(inputFile)
-classes = array[:, 0].astype(int) # first column
-features = array[:, 1:] # the rest of the columns
-numRows = array.shape[0]
-numColumns = array.shape[1]
-print("numRows = ", numRows)
-print("numColumns = ", numColumns)
+# classes = array[:, 0].astype(int) # first column
+# features = array[:, 1:] # the rest of the columns
+# numRows = array.shape[0]
+# numColumns = array.shape[1]
+# print("numRows = ", numRows)
+# print("numColumns = ", numColumns)
 
-def leave_one_out_cross_validation(data, current_set, feature_to_add): # testing stub
+def leave_one_out_rand_stub(data, current_set, feature_to_add): # testing stub
     return random.randint(0,100)
+
+def leave_one_out_cross_validation(array):
+    numRows = array.shape[0]
+    numColumns = array.shape[1]
+    for i in range(1, 10): # i = row
+        nearest_neighbor_dist = np.inf
+        nearest_neighbor_loc = np.inf
+        object_to_classify = array[i-1, i]
+        classes = array[i-1, 0]
+        for k in range(1, numColumns):
+            if k != i: # don't compare to yourself
+                other_objects = array[i-1, k]
+                print("Ask if", i, "is nearest neighbor with", k)
+                print("object to classify = ", object_to_classify)
+                print("other objects = ", other_objects)
+                dist = distance(object_to_classify, other_objects)
+                if (dist < nearest_neighbor_dist):
+                    nearest_neighbor_dist = dist
+                    predicted_class = classes
+
+        # print("Looping over i, at the", i, "location")
+        # print("The", i, "th object is in class", classes)
 
 def feature_search_demo(data, numColumns):
     current_set_of_features = [] # initialize empty set
@@ -45,7 +67,8 @@ def feature_search_demo(data, numColumns):
         current_set_of_features.append(feature_to_add_at_this_level)
         print("On level", i, ", added feature", feature_to_add_at_this_level, "to current set")
 
-feature_search_demo(array, numColumns)
+#feature_search_demo(array, numColumns)
+leave_one_out_cross_validation(array)
 
 # # Test distance 
 # testset = np.array([[0,2,2]])
